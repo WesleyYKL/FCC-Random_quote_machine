@@ -1,25 +1,31 @@
+//Component to get quote and generate random quote
 function Getquote(){
   
+  //Declaring states
   const [quote, setQuote] = React.useState([]);
   const [ranQuote, setRanQuote] = React.useState([]);
-
+  
+  //Fetching data from api
   React.useEffect( () => {
     async function fetchData(){
       const response = await fetch("https://type.fit/api/quotes")
       const data = await response.json();
-
+      
+      //Setting random quote to the random index of the recieved quote bank
       setQuote(data);
       let randIndex = Math.floor(Math.random() * data.length);
       setRanQuote(data[randIndex]);
     }
     fetchData();
   }, [])
-
+  
+  //Function to handle changes when the button is clicked, sets the random quote to another random index of the recieved quote bank
   const handleChange = () => {
     let randIndex = Math.floor(Math.random() * quote.length);
     setRanQuote(quote[randIndex]);
   }
-
+  
+  //Output
   return (
     <div id="quote-box" class = "w-100" >
       <figure class = "text-center">
